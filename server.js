@@ -85,7 +85,7 @@ app.post("/api/logout", (req, res) => {
 
 app.post("/api/chat", requireAuth, async (req, res) => {
   try {
-    const key = process.env.GROQ_API_KEY;
+    const key = process.env.OPENAI_API_KEY;
 
     if (!key) throw new Error("Falta configurar GROQ_API_KEY");
 
