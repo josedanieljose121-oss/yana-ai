@@ -1,99 +1,162 @@
 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#08050e">
 <title>IA YAN</title>
 <style>
-:root {
-  --bg:#08050e;
-  --purple:#a66cff;
-  --text:#f8f3ff;
-  --muted:#a99bbd;
-}
 *{box-sizing:border-box}
 body{
  margin:0;background:radial-gradient(ellipse at 50% -20%,#291342,#08050e 65%);
- color:var(--text);font:15px system-ui,Arial;
- min-height:100vh;display:flex;justify-content:center
+ color:#f8f3ff;font:15px system-ui,Arial;min-height:100vh;
+ display:flex;justify-content:center
 }
 .app{width:100%;max-width:900px;min-height:100vh;display:flex;flex-direction:column;padding:0 16px}
 header{height:75px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff15}
 .brand{font-size:23px;font-weight:900;letter-spacing:2px;color:#bd91ff}
 .status{font-size:11px;color:#cbb8e9;background:#ffffff0c;padding:7px 10px;border-radius:30px}
 main{flex:1;display:flex;flex-direction:column;width:100%;max-width:740px;margin:auto}
-.welcome{text-align:center;padding:75px 12px 20px}
-.logo{
- font-size:48px;font-weight:950;letter-spacing:4px;
- color:#b57aff;text-shadow:0 0 25px #933cff;
- margin-bottom:20px
-}
-h1{font-size:clamp(30px,7vw,43px);margin:0 0 12px}
 .gradient{background:linear-gradient(90deg,#d9baff,#9b58ff,#e5c6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.sub{color:var(--muted);max-width:460px;margin:auto}
-.suggestions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:25px 0}
-.suggestion{
- border:1px solid #a66cff35;background:#ffffff08;color:#eee3ff;
- text-align:left;padding:14px;border-radius:15px;font:inherit;cursor:pointer
-}
+.login{width:100%;max-width:390px;margin:auto;text-align:center;padding:35px 15px}
+.logo{font-size:48px;font-weight:950;letter-spacing:4px;color:#b57aff;text-shadow:0 0 25px #933cff;margin-bottom:20px}
+.login h1{font-size:32px;margin:0 0 10px}
+.sub{color:#a99bbd;margin-bottom:28px}
+.field{width:100%;padding:16px;border:1px solid #a66cff55;border-radius:14px;background:#1b142a;color:white;font:inherit;outline:none;margin-bottom:12px}
+.field:focus{border-color:#b57aff}
+.primary{width:100%;padding:15px;border:0;border-radius:14px;background:linear-gradient(135deg,#ad80ff,#7442ca);color:white;font-weight:800;font-size:15px;cursor:pointer}
+.primary:disabled{opacity:.5}
+.error{color:#ff8d9d;font-size:13px;min-height:22px;margin-top:12px}
+.welcome{text-align:center;padding:65px 12px 20px}
+.welcome .logo{margin-bottom:18px}
+h1{font-size:clamp(29px,6vw,42px);line-height:1.1;margin:0 0 12px}
+.suggestions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:23px 0}
+.suggestion{border:1px solid #a66cff35;background:#ffffff08;color:#eee3ff;text-align:left;padding:14px;border-radius:15px;font:inherit;cursor:pointer}
 .suggestion b{display:block;font-size:13px}
-.suggestion span{font-size:12px;color:var(--muted)}
+.suggestion span{font-size:12px;color:#a99bbd}
 #messages{display:none;flex:1;padding:24px 0;gap:16px;flex-direction:column}
 .msg{display:flex;gap:10px;max-width:94%;align-items:flex-start}
 .msg.user{align-self:flex-end;flex-direction:row-reverse}
-.avatar{width:34px;height:34px;flex:0 0 34px;border-radius:12px;background:#34204f;display:grid;place-items:center;color:#c9a3ff;font-weight:bold}
+.avatar{width:34px;height:34px;flex:0 0 34px;border-radius:12px;background:#34204f;display:grid;place-items:center;color:#c9a3ff;font-weight:bold;font-size:11px}
 .user .avatar{background:#7950c5;color:white}
 .bubble{padding:12px 15px;border:1px solid #ffffff13;background:#1b142a;border-radius:5px 17px 17px 17px;white-space:pre-wrap;overflow-wrap:anywhere}
 .user .bubble{background:linear-gradient(135deg,#7146b8,#583494);border:0;border-radius:17px 5px 17px 17px}
 .composer-wrap{position:sticky;bottom:0;padding:14px 0 18px;background:linear-gradient(transparent,#08050e 22%)}
 .composer{display:flex;gap:9px;align-items:flex-end;padding:9px;background:#1b142a;border:1px solid #a66cff40;border-radius:19px}
-.composer textarea{resize:none;max-height:130px;min-height:43px;flex:1;background:transparent;border:0;outline:0;color:var(--text);font:inherit;padding:10px 8px}
-.composer textarea::placeholder{color:#8f819f}
+textarea{resize:none;max-height:130px;min-height:43px;flex:1;background:transparent;border:0;outline:0;color:white;font:inherit;padding:10px 8px}
 .send{width:43px;height:43px;border:0;border-radius:13px;background:linear-gradient(135deg,#ad80ff,#7442ca);color:white;font-size:19px;cursor:pointer}
 .send:disabled{opacity:.5}
-.foot{text-align:center;color:#83758f;font-size:11px;padding-bottom:12px}
-@media(max-width:520px){
- .welcome{padding-top:50px}
- .suggestions{grid-template-columns:1fr}
-}
+.logout{background:transparent;border:1px solid #a66cff55;color:#c9a3ff;border-radius:10px;padding:8px 12px;cursor:pointer}
+.foot{text-align:center;color:#83758f;font-size:11px;padding:12px 0}
+#chat{display:none;flex-direction:column;flex:1}
+@media(max-width:520px){.welcome{padding-top:45px}.suggestions{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="app">
+
 <header>
  <div class="brand">IA YAN</div>
- <div class="status">● Tu asistente privado</div>
+ <div style="display:flex;align-items:center;gap:10px">
+  <div class="status">● Privada</div>
+  <button class="logout" id="logout" style="display:none">Salir</button>
+ </div>
 </header>
+
 <main>
-<section class="welcome" id="welcome">
+
+<section class="login" id="login">
  <div class="logo">IA YAN</div>
- <h1>Hola, soy <span class="gradient">YAN</span></h1>
- <p class="sub">Soy IA YAN, una inteligencia artificial con identidad propia. Fui creada por mi desarrollador y estoy aquí para ayudarte. 💜</p>
- <div class="suggestions">
-  <button class="suggestion" data-q="Preséntate. ¿Quién eres y quién te creó?"><b>👑 Conóceme</b><span>Mi identidad</span></button>
-  <button class="suggestion" data-q="Enséñame algo interesante."><b>🧠 Aprende algo</b><span>Descubre cosas nuevas</span></button>
-  <button class="suggestion" data-q="Ayúdame a crear un proyecto."><b>💡 Crear ideas</b><span>Construyamos algo</span></button>
-  <button class="suggestion" data-q="Cuéntame algo divertido."><b>✨ Sorpréndeme</b><span>Vamos a divertirnos</span></button>
- </div>
+ <h1>Bienvenido, <span class="gradient">creador</span></h1>
+ <p class="sub">Esta inteligencia artificial es privada. Introduce tu contraseña para entrar.</p>
+ <form id="loginForm">
+  <input class="field" id="password" type="password" placeholder="Tu contraseña privada" autocomplete="current-password" required>
+  <button class="primary" id="loginButton" type="submit">ENTRAR A IA YAN →</button>
+ </form>
+ <div class="error" id="loginError"></div>
+ <div class="foot">Acceso exclusivo para su creador 👑</div>
 </section>
-<div id="messages" aria-live="polite"></div>
-<div class="composer-wrap">
- <div class="composer">
-  <textarea id="prompt" rows="1" placeholder="Habla con IA YAN..." aria-label="Tu mensaje"></textarea>
-  <button class="send" id="send" aria-label="Enviar">➤</button>
+
+<section id="chat">
+ <section class="welcome" id="welcome">
+  <div class="logo">IA YAN</div>
+  <h1>Hola, soy <span class="gradient">YAN</span></h1>
+  <p class="sub">Soy IA YAN, una inteligencia artificial con identidad propia. Fui creada por mi desarrollador. ¡Estoy aquí para ayudarte! 💜</p>
+  <div class="suggestions">
+   <button class="suggestion" data-q="Preséntate. ¿Quién eres y quién te creó?"><b>👑 Conóceme</b><span>Mi identidad</span></button>
+   <button class="suggestion" data-q="Enséñame algo interesante."><b>🧠 Aprende algo</b><span>Descubre cosas nuevas</span></button>
+   <button class="suggestion" data-q="Ayúdame a crear un proyecto."><b>💡 Crear ideas</b><span>Construyamos algo</span></button>
+   <button class="suggestion" data-q="Cuéntame algo divertido."><b>✨ Sorpréndeme</b><span>Vamos a divertirnos</span></button>
+  </div>
+ </section>
+
+ <div id="messages" aria-live="polite"></div>
+
+ <div class="composer-wrap">
+  <div class="composer">
+   <textarea id="prompt" rows="1" placeholder="Habla con IA YAN..."></textarea>
+   <button class="send" id="send">➤</button>
+  </div>
  </div>
-</div>
-<div class="foot">IA YAN · Creada por su desarrollador 💜</div>
+ <div class="foot">IA YAN · Creada por su desarrollador 💜</div>
+</section>
+
 </main>
 </div>
+
 <script>
+const login=document.getElementById('login');
+const chat=document.getElementById('chat');
+const loginForm=document.getElementById('loginForm');
+const password=document.getElementById('password');
+const loginError=document.getElementById('loginError');
+const loginButton=document.getElementById('loginButton');
+const logout=document.getElementById('logout');
 const welcome=document.getElementById('welcome');
 const messages=document.getElementById('messages');
 const input=document.getElementById('prompt');
 const send=document.getElementById('send');
 const history=[];
+
+function showChat(){
+ login.style.display='none';
+ chat.style.display='flex';
+ logout.style.display='block';
+}
+
+loginForm.addEventListener('submit',async e=>{
+ e.preventDefault();
+ loginButton.disabled=true;
+ loginError.textContent='Verificando contraseña...';
+
+ try{
+  const r=await fetch('/api/login',{
+   method:'POST',
+   headers:{'Content-Type':'application/json'},
+   credentials:'same-origin',
+   body:JSON.stringify({password:password.value})
+  });
+  const data=await r.json();
+  if(!r.ok)throw new Error(data.error||'Contraseña incorrecta');
+  password.value='';
+  loginError.textContent='';
+  showChat();
+ }catch(e){
+  loginError.textContent=e.message;
+ }finally{
+  loginButton.disabled=false;
+ }
+});
+
+logout.onclick=async()=>{
+ await fetch('/api/logout',{
+  method:'POST',
+  credentials:'same-origin'
+ });
+ location.reload();
+};
 
 function add(text,who){
  const row=document.createElement('div');
@@ -121,13 +184,19 @@ async function ask(text){
  input.style.height='auto';
  send.disabled=true;
  const reply=add('YAN está pensando...','ai');
+
  try{
   const r=await fetch('/api/chat',{
    method:'POST',
    headers:{'Content-Type':'application/json'},
+   credentials:'same-origin',
    body:JSON.stringify({messages:history})
   });
   const data=await r.json();
+  if(r.status===401){
+   location.reload();
+   return;
+  }
   if(!r.ok)throw new Error(data.error||'Error de conexión');
   reply.textContent=data.reply;
   history.push({role:'assistant',content:data.reply});
@@ -138,10 +207,12 @@ async function ask(text){
   input.focus();
  }
 }
+
 send.onclick=()=>ask(input.value);
 input.addEventListener('keydown',e=>{
  if(e.key==='Enter'&&!e.shiftKey){
-  e.preventDefault();ask(input.value);
+  e.preventDefault();
+  ask(input.value);
  }
 });
 input.addEventListener('input',()=>{
